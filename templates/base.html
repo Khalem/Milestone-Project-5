@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
+    <!-- Compiled and minified CSS (Materialize) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
     <nav>
@@ -12,12 +14,21 @@
             <li><a href="#">Data</a></li>
             <li><a href="#">Animals</a></li>
             <li><a href="#">Community</a></li>
-            <li><a href="#">Login</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'registration' %}">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
     
     {% block content %}{% endblock %}
     
     <footer></footer>
+    
+    <!-- Compiled and minified JavaScript (Materialize) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

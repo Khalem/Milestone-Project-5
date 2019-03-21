@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{{ user }}'s Profile{% endblock %}
+
+{% block content %}
+    <a class="btn" href="{% url 'edit_profile' %}">Edit Profile</a>
+    <h1>Profile</h1>
+    {% if user_profile.profile.image %}
+        <img src="/media/{{ user_profile.profile.image }}" alt="Profile Picture"/>
+    {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="Profile Pictureee"/>
+    {% endif %}
+    <h3>{{ user }}</h3>
+    <p>{{ user_profile.profile.bio }}</p>
+    <p>Proud Owner of:</p>
+    <ul></ul>
+    <p>Rank:</p>
+    <p>{{ user_profile.profile.rank }}</p>
+{% endblock %}
