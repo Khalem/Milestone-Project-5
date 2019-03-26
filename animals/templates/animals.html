@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Animals{% endblock %}
+
+{% block content %}
+    <h3>Endangered Animals</h3>
+    {% for animal in animals %}
+        <img src="/media/{{ animal.profile_img }}"
+        <h6>{{ animal.name }}</h6>
+        <p>Status</p>
+        <p>{{ animal.status_choices }}</p>
+    {% endfor %}
+    
+    {% if animals.has_other_pages %}
+        <ul class="pagination">
+            {% if animals.has_previous %}
+                <li class="waves-effect"><a href="?page={{ animals.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+            {% else %}
+                <li class="disabled"><i class="material-icons">chevron_left</i></li>
+            {% endif %}
+            {% for i in animals.paginator.page_range %}
+                {% if animals.number == i %}
+                    <li class="active"><a href="#!">{{ i }}</a></li>
+                {% else %}
+                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if animals.has_next %}
+                <li class="waves-effect"><a href="?page={{ animals.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+            {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}

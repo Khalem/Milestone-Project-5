@@ -7,12 +7,14 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- Compiled and minified CSS (Materialize) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Materialize Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="#">Data</a></li>
-            <li><a href="#">Animals</a></li>
+            <li><a href="{% url 'all_animals' %}">Animals</a></li>
             <li><a href="#">Community</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">Profile</a></li>

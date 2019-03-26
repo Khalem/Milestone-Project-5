@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.views.static import serve
 from home.views import index
 from accounts import urls as urls_accounts
+from animals import urls as urls_animals
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
     url(r'^accounts/', include(urls_accounts)),
+    url(r'^animals/', include(urls_animals)),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]
