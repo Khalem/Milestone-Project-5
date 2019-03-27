@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from django_comments.models import Comment
 from django.dispatch import receiver
 
 # Create your models here.
@@ -31,17 +33,25 @@ class AdoptAnimalOne(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(blank=False)
 
+
 class AdoptAnimalTwo(models.Model):
     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
     plan_name = models.CharField(max_length=100, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(blank=False)
+
     
 class AdoptAnimalThree(models.Model):
     animal = models.OneToOneField(Animal, on_delete=models.CASCADE)
     plan_name = models.CharField(max_length=100, blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(blank=False)
+  
+  
+class UpVote(models.Model):
+    comment = models.OneToOneField(Comment, on_delete=models.CASCADE)
+    score = models.IntegerField(blank=False, null=False)
+    up_voted = models.ManyToManyField(User)
     
     
 @receiver(post_save, sender=Animal)
@@ -68,13 +78,29 @@ def create_plan_one(sender, instance, created, **kwargs):
             animal=instance, 
             plan_name="{0} Ultimate Pack".format(instance.name.title()), 
             price=45.00, 
-            description="You will recieve the {0} Starter Pack, along with a {0} Teddy Bear and a framed photo of your {0}!".format(instance.name.title())
+            description="You will recieve the {0} Mega Pack, along with a {0} Teddy Bear and a framed photo of your {0}!".format(instance.name.title())
         )
         
-
 
 @receiver(post_save, sender=Animal)
 def save_plan_one(sender, instance, **kwargs):
     instance.adoptanimalone.save()
     instance.adoptanimaltwo.save()
     instance.adoptanimalthree.save()
+    
+
+@receiver(post_save, sender=Comment)
+def create_up_vote(sender, instance, created, **kwargs):
+    """
+        Each time a comment is posted, I will create a up vote system
+    """
+    if created:
+        UpVote.objects.create(comment=instance, score=0)
+        
+        
+@receiver(post_save, sender=Comment)
+def save_up_vote(sender, instance, **kwargs):
+    """
+        Save new object.
+    """
+    instance.upvote.save()

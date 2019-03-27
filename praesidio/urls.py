@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^accounts/', include(urls_accounts)),
     url(r'^animals/', include(urls_animals)),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^comments/', include('django_comments.urls')),
 ]

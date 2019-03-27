@@ -1,4 +1,2 @@
 // Initialize Materialize Tabs
-$(document).ready(function(){
-    $('.tabs').tabs();
- });
+M.AutoInit();
