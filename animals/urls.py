@@ -1,6 +1,7 @@
 from django.conf.urls import url
-from .views import all_animals
+from .views import all_animals, animal_detail
 
 urlpatterns = [
     url(r'^$', all_animals, name="all_animals"),
+    url(r'^(?P<pk>\d+)$', animal_detail, name="animal_detail"),
 ]

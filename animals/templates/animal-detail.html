@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}{{ animal.name }}{% endblock %}
+
+{% block content %}
+    <style>
+        @media only screen and (min-width: 768px){
+            /* Only display header-img for > tablets */
+            .animal-header{
+                background-image: url('/media/{{ animal.header_img }}');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .animal-header h1{
+                color: white;
+                font-weight: 700;
+            }
+            .darken-header{
+                background: rgba(42, 54, 59, 0.5);
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+    
+    <!-- Header -->
+    <div class="animal-header">
+        <div class="darken-header">
+            <h1 class="center">{{ animal.name }}</h1>
+        </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="row container">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#info">Info</a></li>
+                <li class="tab col s3"><a href="#threats">Threats</a></li>
+                <li class="tab col s3"><a href="#adopt">Adopt</a></li>
+                <li class="tab col s3"><a href="#comments">Comments</a></li>
+            </ul>
+        </div>
+        
+        <!-- Display Ingo -->
+        <div id="info" class="col s12">
+            <div class="row">
+                <div class="col s12 m6 l8">
+                    <p>{{ animal.info }}</p>
+                </div>
+                <div class="col s12 m6 l4">
+                    <p>{{ animal.status_choices }}</p>
+                    {% if animal.population %}
+                        <p class="info-title">Population</p>
+                        <p>{{ animal.population }}</p>
+                    {% endif %}
+                    {% if animal.habitat %}
+                        <p class="info-title">Habitat</p>
+                        <p>{{ animal.habitat }}</p>
+                    {% endif %}
+                    {% if animal.weight %}
+                        <p class="info-title">Weight</p>
+                        <p>{{ animal.weight }}</p>
+                    {% endif %}
+                    {% if animal.length %}
+                        <p class="info-title">Length</p>
+                        <p>{{ animal.length }}</p>
+                    {% endif %}
+                    {% if animal.height %}
+                        <p class="info-title">Height</p>
+                        <p>{{ animal.height }}</p>
+                    {% endif %}
+                    {% if animal.scientific_name %}
+                        <p class="info-title">Scientific Name</p>
+                        <p>{{ animal.scientific_name }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Display Threats -->
+        <div id="threats" class="col s12">
+            <div class="row">
+                <div class="col s12 m6 offset-m3">
+                    <p>{{ animal.threats }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Display Adoption offers -->
+        <div id="adopt" class="col s12">
+            <div class="row">
+                <div class="col s12">
+                    <h4>{{ animal.adoptanimalone.plan_name }}</h4>
+                    <p>{{ animal.adoptanimalone.description }}</p>
+                    <h5>{{ animal.adoptanimalone.price }}</h5>
+                    <a href="#" class="btn btn-default">Add to Cart</a>
+                </div>
+                <div class="col s12">
+                    <h4>{{ animal.adoptanimaltwo.plan_name }}</h4>
+                    <p>{{ animal.adoptanimaltwo.description }}</p>
+                    <h5>{{ animal.adoptanimaltwo.price }}</h5>
+                    <a href="#" class="btn btn-default">Add to Cart</a>
+                </div>
+                <div class="col s12">
+                    <h4>{{ animal.adoptanimalthree.plan_name }}</h4>
+                    <p>{{ animal.adoptanimalthree.description }}</p>
+                    <h5>{{ animal.adoptanimalthree.price }}</h5>
+                    <a href="#" class="btn btn-default">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <!-- Comments -->
+        <div id="comments" class="col s12">Test 4</div>
+    </div>
+{% endblock %}

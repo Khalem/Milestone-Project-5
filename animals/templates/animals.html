@@ -3,14 +3,20 @@
 {% block title %}Animals{% endblock %}
 
 {% block content %}
+
     <h3>Endangered Animals</h3>
+    <!-- Get animals -->
     {% for animal in animals %}
-        <img src="/media/{{ animal.profile_img }}"
-        <h6>{{ animal.name }}</h6>
-        <p>Status</p>
-        <p>{{ animal.status_choices }}</p>
+        <a href="{% url 'animal_detail' animal.id %}">
+            <img src="/media/{{ animal.profile_img }}"/>
+            <h4>{{ animal.name }}</h4>
+            <p>Status</p>
+            <p>{{ animal.status_choices }}</p>
+        </a>
     {% endfor %}
     
+    
+    <!-- Pagination -->
     {% if animals.has_other_pages %}
         <ul class="pagination">
             {% if animals.has_previous %}

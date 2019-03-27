@@ -6,7 +6,7 @@ from django.dispatch import receiver
 class Animal(models.Model):
     name = models.CharField(max_length=250, blank=False)
     STATUS = (
-        ("Critically Endangerd", "CE"),
+        ("Critically Endangered", "CE"),
         ("Endangered", "E"),
         ("Vunerable", "V"),
         ("Near Threatened", "NT"),
