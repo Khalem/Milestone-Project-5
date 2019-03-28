@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+<div class="row">
+    {% for item in cart_items %}
+    <div class="container">
+        <div>
+            <h3>
+                <h3>{{ item.plan_name }}</h3>
+                {% if "Ultimate Pack" in item.plan_name %}
+                    <p class="product-description">{{ item.product.adoptanimalthree.description }}</p>
+                    <p>{{ item.product.adoptanimalthree.price }}</p>
+                {% elif "Basic Pack" in item.plan_name %}
+                    <p class="product-description">{{ item.product.adoptanimalone.description }}</p>
+                    <p>{{ item.product.adoptanimalone.price }}</p>
+                {% elif "Mega Pack" in item.plan_name %}
+                    <p class="product-description">{{ item.product.adoptanimaltwo.description }}</p>
+                    <p>{{ item.product.adoptanimaltwo.price }}</p>
+                {% endif %}
+            <p>
+                
+                <form method="post" action="{% url 'adjust_cart' item.plan_name %}">
+                    {% csrf_token %}
+                    <div>
+                        <label for="exampleInputAmount" class="sr-only">New Qty</label>
+                        <div class="input-field">
+                            <input name="quantity" id="quantity" type="number" min="0" max="999" class="form-control">
+                            <label for="quantity">{{ item.quantity }} (Change Quantity?)</label>
+                            <div>Amount: {{ item.quantity }}</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Amend</button>
+                </form>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="row container">
+    <p>Total</p>
+    <p>{{ total }}</p>
+    <a href="{% url 'checkout' %}" class="btn" role="button">Checkout</a>
+</div>
+
+{% endblock %}

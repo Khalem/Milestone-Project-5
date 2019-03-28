@@ -15,6 +15,11 @@
     <h3>{{ user }}</h3>
     <p>{{ user_profile.profile.bio }}</p>
     <p>Proud Owner of:</p>
+    <ul>
+        {% for animal in user_profile.profile.adopted %}
+            <li>{{ animal }}</li>
+        {% endfor %}
+    </ul>
     <ul></ul>
     <p>Rank:</p>
     <p>{{ user_profile.profile.rank }}</p>

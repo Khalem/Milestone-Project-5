@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load materializecss %}
+
 {% load comments %}
 
 {% block title %}{{ animal.name }}{% endblock %}
@@ -95,19 +97,31 @@
                     <h4>{{ animal.adoptanimalone.plan_name }}</h4>
                     <p>{{ animal.adoptanimalone.description }}</p>
                     <h5>{{ animal.adoptanimalone.price }}</h5>
-                    <a href="#" class="btn btn-default">Add to Cart</a>
+                    <form method="post" action="{% url 'add_to_cart' animal.adoptanimalone.plan_name %}">
+                        {% csrf_token %}
+                        <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
+                        <button class="btn btn-success" type="submit">Add</button>
+                    </form>
                 </div>
                 <div class="col s12">
                     <h4>{{ animal.adoptanimaltwo.plan_name }}</h4>
                     <p>{{ animal.adoptanimaltwo.description }}</p>
                     <h5>{{ animal.adoptanimaltwo.price }}</h5>
-                    <a href="#" class="btn btn-default">Add to Cart</a>
+                    <form method="post" action="{% url 'add_to_cart' animal.adoptanimaltwo.plan_name %}">
+                        {% csrf_token %}
+                        <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
+                        <button class="btn btn-success" type="submit">Add</button>
+                    </form>
                 </div>
                 <div class="col s12">
                     <h4>{{ animal.adoptanimalthree.plan_name }}</h4>
                     <p>{{ animal.adoptanimalthree.description }}</p>
                     <h5>{{ animal.adoptanimalthree.price }}</h5>
-                    <a href="#" class="btn btn-default">Add to Cart</a>
+                    <form method="post" action="{% url 'add_to_cart' animal.adoptanimalthree.plan_name %}">
+                        {% csrf_token %}
+                        <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
+                        <button class="btn btn-success" type="submit">Add</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -138,7 +152,7 @@
                 {% get_comment_form for animal as form %}
                 <form action="{% comment_form_target %}" method="POST">
                 {% csrf_token %}
-                {{ form.comment }}
+                {{ form.comment | materializecss }}
                 {{ form.honeypot }}
                 {{ form.content_type }}
                 {{ form.object_pk }}
@@ -153,8 +167,4 @@
         </div>
     </div>
     
-    <script>
-    // Adding materialize class to text area
-        document.getElementById("id_comment").classList.add("materialize-textarea")
-    </script>
 {% endblock %}

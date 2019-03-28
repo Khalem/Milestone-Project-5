@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% load materializecss %}
+
+{% block head_js %}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+        //<![CDATA[
+            Stripe.publishableKey = "{{ publishable }}";
+        // ]]
+    </script>
+    <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for item in cart_items %}
+            <div class="col s12 m4">
+                <div>
+                    <div>
+                        <h3>{{ item.plan_name }}</h3>
+                        {% if "Ultimate Pack" in item.plan_name %}
+                            <p class="product-description">{{ item.product.adoptanimalthree.description }}</p>
+                            <p>{{ item.product.adoptanimalthree.price }}</p>
+                        {% elif "Basic Pack" in item.plan_name %}
+                            <p class="product-description">{{ item.product.adoptanimalone.description }}</p>
+                            <p>{{ item.product.adoptanimalone.price }}</p>
+                        {% elif "Mega Pack" in item.plan_name %}
+                            <p class="product-description">{{ item.product.adoptanimaltwo.description }}</p>
+                            <p>{{ item.product.adoptanimaltwo.price }}</p>
+                        {% endif %}
+                        <p>{{ item.quantity }}</p>
+                        <p class="product-description">{{ item.product.description }}</p>
+                        <p>{{ item.product.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <p>Total</p>
+        <p>{{ total }}</p>
+    </div>
+    
+    <form role="form" method="POST" id="payment-form" action="{% url 'checkout' %}">
+        <legend>Payment Details</legend>
+        <div id="credit-card-errors" style="display: none">
+            <div id="stripe-error-message"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col m6">
+                {{ order_form | materializecss }}
+            </div>
+            
+            <div class="col m6">
+                {{ payment_form | materializecss }}
+            </div>
+            
+            {% csrf_token %}
+            <div class="col m12">
+                <input type="submit" name="commit" id="btn-submit" class="btn" value="Submit Payment"/>
+            </div>
+        </div>
+    </form>
+{% endblock %}

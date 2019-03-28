@@ -19,6 +19,8 @@ from django.views.static import serve
 from home.views import index
 from accounts import urls as urls_accounts
 from animals import urls as urls_animals
+from cart import urls as urls_cart
+from checkout import urls as urls_checkout
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -28,4 +30,6 @@ urlpatterns = [
     url(r'^animals/', include(urls_animals)),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     url(r'^comments/', include('django_comments.urls')),
+    url(r'^cart/', include(urls_cart)),
+    url(r'^checkout/', include(urls_checkout)),
 ]
