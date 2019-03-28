@@ -58,7 +58,7 @@ def checkout(request):
                 user = get_object_or_404(User, username=request.user)
                 if user.profile.adopted and product.name not in user.profile.adopted:
                     user.profile.adopted.append(product.name)
-                else:
+                elif not user.profile.adopted:
                     user.profile.adopted = [product.name]
                     
                 if len(user.profile.adopted) >= 1:

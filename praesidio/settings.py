@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'animals',
     'cart',
     'checkout',
+    'data',
     'materializecssform',
 ]
 

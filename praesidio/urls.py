@@ -21,6 +21,7 @@ from accounts import urls as urls_accounts
 from animals import urls as urls_animals
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
+from data import urls as urls_data
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -32,4 +33,5 @@ urlpatterns = [
     url(r'^comments/', include('django_comments.urls')),
     url(r'^cart/', include(urls_cart)),
     url(r'^checkout/', include(urls_checkout)),
+    url(r'^data/', include(urls_data)),
 ]
