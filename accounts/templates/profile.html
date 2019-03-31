@@ -10,7 +10,7 @@
     {% if user_profile.profile.image %}
         <img src="/media/{{ user_profile.profile.image }}" alt="Profile Picture"/>
     {% else %}
-        <img src="{% static 'images/default.jpg' %}" alt="Profile Pictureee"/>
+        <img src="{% static 'images/default.jpg' %}" alt="Profile Picture"/>
     {% endif %}
     <h3>{{ user }}</h3>
     <p>{{ user_profile.profile.bio }}</p>

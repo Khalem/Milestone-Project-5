@@ -43,6 +43,6 @@
 /*-- Responsive Styling --*/
 @media only screen and (min-width: 768px){
     .comment-profile-img{
-        max-width: 80px;
+        max-width: 50px;
     }
 }

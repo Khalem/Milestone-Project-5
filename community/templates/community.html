@@ -1,16 +1,67 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Community{% endblock %}
 
 {% block content %}
     <div class="container">
         <h1 class="bold center">Community</h1>
         <a class="btn" href="{% url 'new_post' %}">New Post</a>
-        <!-- Get Posts -->
-        {% for post in posts %}
+        <h2>Staff Posts</h2>
+        <!-- Get Staff Posts -->
+        {% for post in staff_posts %}
             <div class="row">
                 <div class="col s5 m2 profile-box">
-                    <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                    {% if post.user.profile.image %}
+                        <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                    {% else %}
+                        <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                    {% endif %}
+                        <h6 class="bold">{{ post.user }}</h6>
+                        <p class="small truncate">{{ post.published_date }}</p>
+                </div>
+                <div class="col s7 m10">
+                    <a href="{% url 'post_detail' post.id %}"><h6 class="bold">{{ post.title }}</h6>
+                    <p class="truncate">{{ post.content }}</p></a>
+                    <p><a href="{% url 'up_vote_post' post.id %}">Up Vote</a> {{ post.postupvote.score }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        
+        <!-- Staff Pagination -->
+        {% if staff_posts.has_other_pages %}
+            <ul class="pagination">
+                {% if staff_posts.has_previous %}
+                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                {% else %}
+                    <li class="disabled"><i class="material-icons">chevron_left</i></li>
+                {% endif %}
+                {% for i in staff_posts.paginator.page_range %}
+                    {% if staff_posts.number == i %}
+                        <li class="active"><a href="#!">{{ i }}</a></li>
+                    {% else %}
+                        <li class="waves-effect"><a href="?staff_page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if staff_posts.has_next %}
+                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                {% else %}
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+        
+        <!-- Get Posts -->
+        <h2>User Posts</h2>
+        {% for post in user_posts %}
+            <div class="row">
+                <div class="col s5 m2 profile-box">
+                    {% if post.user.profile.image %}
+                        <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                    {% else %}
+                        <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                    {% endif %}
                         <h6 class="bold">{{ post.user }}</h6>
                         <p class="small truncate">{{ post.published_date }}</p>
                 </div>
@@ -21,5 +72,30 @@
                 </div>
             </div>
         {% endfor %}
+        
+        <!-- Pagination -->
+        {% if user_posts.has_other_pages %}
+            <ul class="pagination">
+                {% if user_posts.has_previous %}
+                    <li class="waves-effect"><a href="?user_page={{ user_posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                {% else %}
+                    <li class="disabled"><i class="material-icons">chevron_left</i></li>
+                {% endif %}
+                {% for i in user_posts.paginator.page_range %}
+                    {% if user_posts.number == i %}
+                        <li class="active"><a href="#!">{{ i }}</a></li>
+                    {% else %}
+                        <li class="waves-effect"><a href="?user_page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if user_posts.has_next %}
+                    <li class="waves-effect"><a href="?user_page={{ user_posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                {% else %}
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+        
+        
     </div>
 {% endblock %}

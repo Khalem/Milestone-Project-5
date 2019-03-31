@@ -1,16 +1,48 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django_comments.models import Comment
 from .models import Post
 from .forms import BlogPostForm
 
+
 def get_posts(request):
     """
-        Create view that will return a list of posts
+        Create view that will return a list of posts - I decided upon having 2 seperate types of posts: staff and user. They will each have their own pagination.
     """
     
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by("-published_date")
-    return render(request, "community.html", {"posts": posts})
+    
+    staff_posts = posts.filter(user__is_staff=True)
+    user_posts = posts.filter(user__is_staff=False)
+    print(user_posts.count())
+    
+    staff_paginator = Paginator(staff_posts, 4)
+    user_paginator = Paginator(user_posts, 4)
+    
+    # To have the pagination to work seperately to eachother, I will name each page something unique not to return the same page for both staff and users
+    staff_page = request.GET.get("staff_page")
+    user_page = request.GET.get("user_page")
+    
+    # Staff Paginate
+    try:
+        staff_posts = staff_paginator.page(staff_page)
+    except PageNotAnInteger:
+        staff_posts = staff_paginator.page(1)
+    except EmptyPage:
+        staff_posts = staff_paginator.page(staff_paginator.num_pages)
+        
+    # User Paginate
+    try:
+        user_posts = user_paginator.page(user_page)
+    except PageNotAnInteger:
+        user_posts = user_paginator.page(1)
+    except EmptyPage:
+        user_posts = user_paginator.page(user_paginator.num_pages)
+
+    return render(request, "community.html", {"staff_posts": staff_posts, "user_posts": user_posts})
+ 
     
 def post_detail(request, pk):
     """
@@ -21,6 +53,7 @@ def post_detail(request, pk):
     post.views += 1
     post.save()
     return render(request, "community-post.html", {"post": post})
+    
     
 def create_or_edit_post(request, pk=None):
     """
@@ -49,3 +82,39 @@ def delete_post(request, pk):
     post.delete()
     
     return redirect(get_posts)
+    
+    
+def up_vote_post_comment(request, pk, page_id):
+    """
+        This view will check if user has already up voted, then add or remove up vote accordinly - For post comments
+    """
+    comment = Comment.objects.get(pk=pk)
+    
+    if request.user not in comment.upvote.up_voted.all():
+        comment.upvote.up_voted.add(request.user)
+        comment.upvote.score += 1
+        comment.upvote.save()
+    else:
+        comment.upvote.up_voted.remove(request.user)
+        comment.upvote.score -= 1
+        comment.upvote.save()
+    
+    return redirect("post_detail", page_id)
+    
+
+def up_vote_post(request, pk):
+    """
+        This view will check if user has already up voted, then add or remove up vote accordinly - For posts
+    """
+    post = Post.objects.get(pk=pk)
+    
+    if request.user not in post.postupvote.up_voted.all():
+        post.postupvote.up_voted.add(request.user)
+        post.postupvote.score += 1
+        post.postupvote.save()
+    else:
+        post.postupvote.up_voted.remove(request.user)
+        post.postupvote.score -= 1
+        post.postupvote.save()
+    
+    return redirect("post_detail", pk)

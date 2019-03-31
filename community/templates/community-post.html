@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+{% load comments %}
+{% load materializecss %}
+
 {% block title %}Community | {{ post.title }}{% endblock %}
 
 {% block content %}
@@ -7,7 +11,11 @@
         <!-- Post -->
         <h3 class="bold">{{ post.title }}</h3>
         <div class="row">
-            <img class="post-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ post.user }}'s Profile Picture"/>
+            {% if post.user.profile.image %}
+                <img class="post-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+            {% else %}
+                <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+            {% endif %}
             <div class="post-author">
                 <h6 class="bold">{{ post.user }}</h6>
                 <p class="small">{{ post.published_date }}</p>
@@ -20,10 +28,55 @@
         {% endif %}
         <p>{{ post.content }}</p>
         <p>Views {{ post.views }}</p>
-        <p>Up Vote {{ post.postupvote.score }} </p>
+        <p><a href="{% url 'up_vote_post' post.id %}">Up Vote </a>{{ post.postupvote.score }} </p>
         <hr>
         <!-- Comments -->
         <h4 class="bold">Comments</h4>
+        
+        <div id="post_comments" class="col s12">
+            {% get_comment_count for post as comment_count %}
+            
+            <!-- Load Comments -->
+            {% get_comment_list for post as comment_list %}
+            {% if comment_list %}
+                {% for comment in comment_list %}
+                    <div class="row">
+                        <div class="col s5 m2 profile-box">
+                            <img class="comment-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                            <div class="row">
+                                <h6 class="bold">{{ comment.user }}</h6>
+                                <p class="small">{{ comment.submit_date }}</p>
+                            </div>
+                        </div>
+                        <div class="col s7 m10">
+                            <p>{{ comment.comment }}</p>
+                            <p><a href="{% url 'up_vote_post_comment' comment.id post.id %}">Up Vote</a> {{ comment.upvote.score }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No comments to show, feel free to post one below!</p>
+            {% endif %}
+            
+            <!-- If user is logged in, they can post a comment. -->
+            {% if user.is_authenticated %}
+                {% get_comment_form for post as form %}
+                <form action="{% comment_form_target %}" method="POST">
+                {% csrf_token %}
+                {{ form.comment | materializecss }}
+                {{ form.honeypot }}
+                {{ form.content_type }}
+                {{ form.object_pk }}
+                {{ form.timestamp }}
+                {{ form.security_hash }}
+                <input type="hidden" name="next" value="{% url 'post_detail' post.id %}" />
+                <input type="submit" value="Add comment" id="id_submit" class="btn btn-default"/>
+                </form>
+            {% else %}
+                <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+            {% endif %}
+        </div>
+        
     </div>
     
     <!-- Modal Structure -->
