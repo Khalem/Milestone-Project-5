@@ -92,7 +92,7 @@ def save_plan_one(sender, instance, **kwargs):
 @receiver(post_save, sender=Comment)
 def create_up_vote(sender, instance, created, **kwargs):
     """
-        Each time a comment is posted, I will create a up vote system
+        Each time a comment is posted, I will create an up vote system
     """
     if created:
         UpVote.objects.create(comment=instance, score=0)

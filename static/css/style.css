@@ -8,6 +8,16 @@
 .small{
     font-size: 12px;
 }
+.post-profile-img{
+    border-radius: 50%;
+    max-width: 40px;
+    display: inline-block;
+}
+.post-author{
+    margin-left: 10px;
+    display: inline-block;
+    line-height: .5;
+}
 /*-- /Misc. Styles --*/
 
 /*-- Styles for Comment Forms --*/

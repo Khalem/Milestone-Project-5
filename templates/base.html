@@ -28,7 +28,7 @@
         <ul>
             <li><a href="#">Data</a></li>
             <li><a href="{% url 'all_animals' %}">Animals</a></li>
-            <li><a href="#">Community</a></li>
+            <li><a href="{% url 'get_posts' %}">Community</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>

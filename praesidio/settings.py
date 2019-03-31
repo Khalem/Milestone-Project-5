@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'data',
+    'community',
     'materializecssform',
 ]
 

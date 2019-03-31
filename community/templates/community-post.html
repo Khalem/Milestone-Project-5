@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Community | {{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- Post -->
+        <h3 class="bold">{{ post.title }}</h3>
+        <div class="row">
+            <img class="post-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ post.user }}'s Profile Picture"/>
+            <div class="post-author">
+                <h6 class="bold">{{ post.user }}</h6>
+                <p class="small">{{ post.published_date }}</p>
+            </div>
+        </div>
+        <!-- Allow user to edit or delete post, only if the post belongs to them -->
+        {% if post.user == request.user %}
+            <a href="{% url 'edit_post' post.id %}">Edit Post</a>
+            <a class="modal-trigger" href="#delete_modal">Delete Post</a>
+        {% endif %}
+        <p>{{ post.content }}</p>
+        <p>Views {{ post.views }}</p>
+        <p>Up Vote {{ post.postupvote.score }} </p>
+        <hr>
+        <!-- Comments -->
+        <h4 class="bold">Comments</h4>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="delete_modal" class="modal">
+        <div class="modal-content">
+            <h4>Are You Sure?</h4>
+            <p>You are about to delete your post, go ahead?</p>
+            <a class="btn" href="{% url 'delete_post' post.id %}">Delete</a>
+            <button class="btn modal-close">Cancel</button>
+        </div>
+    </div>
+{% endblock %}
