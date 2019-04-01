@@ -5,6 +5,29 @@
 {% block content %}
 
     <h3>Endangered Animals</h3>
+    
+    <form action="{% url 'search_animals' %}" method="GET">
+        <div class="row container">
+            <div class="input-field col s12 m4">
+                <select name="status">
+                    <option value="">Danger Level</option>
+                    <option value="Critically Endangered">Critically Endangered</option>
+                    <option value="Endangered">Endangered</option>
+                    <option value="Vunerable">Vunerable</option>
+                    <option value="Near Threatened">Near Threatened</option>
+                    <option value="Least Concern">Least Concern</option>
+                </select>
+            </div>
+            <div class="input-field col s12 m4">
+                <input type="text" name="q">
+                <label for="q">Search..</label>
+            </div>
+            <div class="col s12 m4">
+                <button type="submit" class="btn">Search!</button>
+            </div>
+        </div>
+    </form>
+    
     <!-- Get animals -->
     {% for animal in animals %}
         <a href="{% url 'animal_detail' animal.id %}">
@@ -20,7 +43,12 @@
     {% if animals.has_other_pages %}
         <ul class="pagination">
             {% if animals.has_previous %}
-                <li class="waves-effect"><a href="?page={{ animals.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                <!-- This is for when user has searched - the custom URL will keep their search parameters when changing pages -->
+                {% if custom_url %}
+                    <li class="waves-effect"><a href="{{ custom_url }}&page={{ animals.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                {% else %}
+                    <li class="waves-effect"><a href="?page={{ animals.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                {% endif %}
             {% else %}
                 <li class="disabled"><i class="material-icons">chevron_left</i></li>
             {% endif %}
@@ -28,11 +56,21 @@
                 {% if animals.number == i %}
                     <li class="active"><a href="#!">{{ i }}</a></li>
                 {% else %}
-                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                    <!-- This is for when user has searched - the custom URL will keep their search parameters when changing pages -->
+                    {% if custom_url %}
+                        <li class="waves-effect"><a href="{{ custom_url }}&page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             {% if animals.has_next %}
-                <li class="waves-effect"><a href="?page={{ animals.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                <!-- This is for when user has searched - the custom URL will keep their search parameters when changing pages -->
+                {% if custom_url %}
+                    <li class="waves-effect"><a href="{{ custom_url }}&page={{ animals.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                {% else %}
+                    <li class="waves-effect"><a href="?page={{ animals.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                {% endif %}
             {% else %}
                 <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
             {% endif %}
