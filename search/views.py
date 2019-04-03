@@ -17,6 +17,8 @@ def search_animals(request):
         animals = Animal.objects.filter(name__icontains=request.GET["q"])
     elif request.GET["status"]:
         animals = Animal.objects.filter(status_choices=request.GET["status"])
+    else:
+        animals = Animal.objects.all()
     
     paginator = Paginator(animals, 8)
     

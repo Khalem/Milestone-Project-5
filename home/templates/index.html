@@ -1,43 +1,90 @@
 {% extends "base.html" %}
+
+{% load staticfiles %}
+
 {% block title %}Praesidio | Home{% endblock %}
 {% block content %}
-    <div>
-        <h1>Adopt an Endangered <br/>
-            Animal Today.</h1>
-        <hr>
-        <p>Help save thousands of endangered animals, by adopting one.</p>
-        <a href="#">Get Started</a>
+    <div class="landing">
+        <div class="darken-landing">
+            <div class="landing-content container">
+                <h1>Adopt an Endangered <br/>
+                Animal Today.</h1>
+                <div class="row">
+                    <div class="col s12 m10 xl6">
+                        <hr class="hr-red">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m7 xl5">
+                        <p class="italic">Help save thousands of endangered animals, by adopting one.</p>  
+                    </div>
+                    <div class="col s12 m5 xl7">
+                        <a class="btn bg-red modal-trigger" href="#get-started-modal">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <section>
-        <!-- Row -->
-        <div>
-            <h3>What We Do</h3>
-            <!-- Column w/Logo -->
-            <div></div>
-            <!-- Column -->
-            <div>
-                <p>Morbi massa quam, interdum nec ipsum sit amet, tempus convallis nulla. Praesent vitae tincidunt elit. Proin dignissim commodo volutpat. Integer pulvinar feugiat tortor.
-                <br>In hac habitasse platea dictumst. Nam viverra risus eu aliquam accumsan. Suspendisse at tempor tortor. Vivamus id euismod eros.</p>
+    <section class="index-section">
+        <div class="container">
+            <!-- Who We Are -->
+            <div class="row large-spaced">
+                <h5 class="center bold small-spaced">What We Do</h5>
+                <!-- Column w/Logo -->
+                <div class="col s12 m6 l4 offset-l2 small-spaced">
+                    <img class="logo-resize-md" src="{% static 'images/Logo-White.png' %}" alt="Logo"/>
+                </div>
+                <!-- Column -->
+                <div class="col s12 m6 small-spaced">
+                    <p>Morbi massa quam, interdum nec ipsum sit amet, tempus convallis nulla. Praesent vitae tincidunt elit. Proin dignissim commodo volutpat. Integer pulvinar feugiat tortor.
+                    <br/>
+                    <br/>In hac habitasse platea dictumst. Nam viverra risus eu aliquam accumsan. Suspendisse at tempor tortor. Vivamus id euismod eros.</p>
+                </div>
             </div>
-        </div>
-        <!-- Row -->
-        <div>
-            <h3>What You Can Do to Help</h3>
-            <!-- To be 3 columns -->
-            <div>
-                <p>Pay to Adopt</p>
-                <p>Sed facilisis vehicula urna, eu ultricies sapien dignissim scelerisque. Pellentesque eu erat nec neque pretium efficitur quis ac dolor.</p>
+            <!-- Help -->
+            <div class="row help-container shadow-25b large-spaced">
+                <h5 class="bold center small-spaced">What You Can Do to Help</h5>
+                <hr class="hr-small hr-red"/>
+                <div class="col s12 m4">
+                    <p class="bold center">Pay to Adopt</p>
+                    <p class="center"><i class="help-icons c-red fas fa-euro-sign"></i></p>
+                    <p>Sed facilisis vehicula urna, eu ultricies sapien dignissim scelerisque. Pellentesque eu erat nec neque pretium efficitur quis ac dolor.</p>
+                </div>
+                <div class="col s12 m4">
+                    <p class="bold center">Preserve Habitats</p>
+                    <p class="center"><i class="help-icons c-red fas fa-shield-alt"></i></p>
+                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae laoreet est, sed rhoncus dui.</p>
+                </div>
+                <div class="col s12 m4">
+                    <p class="bold center">Recieve Gifts</p>
+                    <p class="center"><i class="help-icons c-red fas fa-paw"></i></p>
+                    <p>Pellentesque nunc risus, tempus id purus quis, consequat porttitor nunc. Nunc tincidunt nunc ut dolor venenatis, non iaculis lorem faucibus. Fusce consequat vitae ligula in fermentum.</p>
+                </div>
+                <div class="row center">
+                    <a class="btn bg-red" href="{% url 'all_animals' %}">View Animals</a>
+                </div>
             </div>
-            <div>
-                <p>Preserve Habitats</p>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce vitae laoreet est, sed rhoncus dui.</p>
-            </div>
-            <div>
-                <p>Recieve Gifts</p>
-                <p>Pellentesque nunc risus, tempus id purus quis, consequat porttitor nunc. Nunc tincidunt nunc ut dolor venenatis, non iaculis lorem faucibus. Fusce consequat vitae ligula in fermentum.</p>
-            </div>
-            <a href="#">View Animals</a>
         </div>
     </section>
+    
+    <!-- Modal Structure -->
+    <div id="get-started-modal" class="modal">
+        <div class="modal-content">
+            <h4 class="bold center">Getting Started</h4>
+            <p>Like to help save endangered species from becoming extinct? Simply <a href="{% url 'registration' %}">create an account</a>
+            and then view the <a href="{% url 'all_animals' %}">endangered animals</a> on our site and adopt them!</p>
+            <div class="row center">
+                <div class="col s6">
+                    <a class="btn bg-red" href="{% url 'registration' %}">Register</a>
+                </div>
+                <div class="col s6">
+                    <a class="btn" href="{% url 'all_animals' %}">View Animals</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
 {% endblock %}

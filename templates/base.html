@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Materialize Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:700,900|Roboto:400,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
     <!-- jQuery -->
@@ -24,28 +28,55 @@
     {% endblock head_js %}
 </head>
 <body>
+    <!-- Desktop Nav -->
     <nav>
-        <ul>
-            <li><a href="#">Data</a></li>
-            <li><a href="{% url 'all_animals' %}">Animals</a></li>
-            <li><a href="{% url 'get_posts' %}">Community</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'registration' %}">Register</a></li>
-            {% endif %}
-            <li>
-                <a href="{% url 'view_cart' %}">
-                    Cart
-                    {% if product_count > 0 %}
-                        <label class="badge badge-warning">{{ product_count }}</label>
-                    {% endif %}
-                </a>
-            </li>
-        </ul>
+        <div class="container">
+            <a href="{% url 'index' %}"><img src="{% static 'images/Logo-Pink.png' %}" alt="Praesidio Logo"/></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'data' %}">Data</a></li>
+                <li><a href="{% url 'all_animals' %}">Animals</a></li>
+                <li><a href="{% url 'get_posts' %}">Community</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'registration' %}">Register</a></li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'view_cart' %}">
+                        Cart
+                        {% if product_count > 0 %}
+                            <label>{{ product_count }}</label>
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
+    
+    <!-- Mobile Nav -->
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="{% url 'data' %}">Data</a></li>
+        <li><a href="{% url 'all_animals' %}">Animals</a></li>
+        <li><a href="{% url 'get_posts' %}">Community</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'registration' %}">Register</a></li>
+        {% endif %}
+        <li>
+            <a href="{% url 'view_cart' %}">
+                Cart
+                {% if product_count > 0 %}
+                    <label>{{ product_count }}</label>
+                {% endif %}
+            </a>
+        </li>
+      </ul>
     
     {% if messages %}
         <div class="alert alert-success">

@@ -1,4 +1,9 @@
 /*-- Misc. Styles --*/
+body{
+    font-family: "Roboto", sans-serif;
+    background-color: #2A363B;
+    color: white;
+}
 .bold{
     font-weight: 700;
 }
@@ -7,6 +12,30 @@
 }
 .small{
     font-size: 12px;
+}
+.italic{
+    font-style: italic;
+}
+.bg-red{
+    background-color: #E84A5F;
+}
+.bg-red:hover{
+    background-color: #F65066;
+}
+.c-red{
+    color: #E84A5F;
+}
+.hr-red{
+    border-color: #E84A5F;
+}
+.hr-small{
+    width: 5%;
+}
+.small-spaced{
+    margin: 20px 0;
+}
+.large-spaced{
+    margin: 75px 0;
 }
 .post-profile-img{
     border-radius: 50%;
@@ -18,7 +47,83 @@
     display: inline-block;
     line-height: .5;
 }
+.logo-resize-md{
+    max-width: 200px;
+}
+.shadow-25b{
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+}
+h5{
+    font-family: "Fira Sans", sans-serif;
+}
+.btn{
+    font-weight: 700;
+    border-radius: 7px;
+    text-transform: none;
+    padding: 0 20px;
+}
 /*-- /Misc. Styles --*/
+
+
+/*-- Nav Styles --*/
+nav{
+    background-color: #1D2529;
+    position: fixed;
+}
+nav ul li{
+    font-weight: 700;
+}
+nav img{
+    vertical-align: middle;
+    max-width: 50px;
+}
+/*-- /Nav Styles --*/
+
+
+/*-- Landing Styles --*/
+.landing{
+    background-image: url("/static/images/landing-test.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.darken-landing{
+    width: 100%;
+    height: 100%;
+    background: rgba(42, 54, 59, 0.75);
+}
+.landing-content{
+    padding: 150px 0;
+}
+.landing h1{
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 900;
+    margin: 0;
+    padding: 40px 0;
+}
+.landing .btn{
+    padding: 0 40px;
+}
+/* Keep hr full width to align with text */
+.landing .row, .landing .col{
+    padding: 0;
+}
+
+/*-- /Landing Styles --*/
+
+/*-- index --*/
+.help-icons{
+    display: inline-block;
+    text-align: center;
+    font-size: 72px;
+}
+.help-container{
+    background-color: #1D2529;
+    border-radius: 20px;
+    padding: 20px;
+}
+/*-- /index --*/
 
 /*-- Styles for Comment Forms --*/
 #id_honeypot {
@@ -38,6 +143,15 @@
     margin: 0;
     
 }
+
+/*-- Modal Styles --*/
+.modal-content{
+    color: #1D2529;
+}
+.modal-content h4{
+    font-family: "Fira Sans", sans-serif;
+}
+/*-- /Modal Styles --*/
 
 
 /*-- Responsive Styling --*/
