@@ -39,7 +39,10 @@ body{
     margin: 20px 0;
 }
 .large-spaced{
-    margin: 75px 0;
+    margin: 95px 0;
+}
+.xl-spaced{
+    margin: 150px 0;
 }
 .post-profile-img{
     border-radius: 50%;
@@ -136,6 +139,11 @@ nav img{
     border-radius: 20px;
     padding: 20px;
 }
+.login-container{
+    background-color: #1D2529;
+    border-radius: 20px;
+    padding: 40px;
+}
 /*-- /Index Styles --*/
 
 
@@ -161,7 +169,7 @@ nav img{
 
 /*-- Form Styles --*/
 /*Materialize Forms*/
-input[type=text]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+input[type=text]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]){
     border-bottom: 1px solid #e84a5f;
     box-shadow: 0 1px 0 0 #e84a5f;
 }
@@ -177,10 +185,10 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label{
 .select-wrapper .caret{
     fill: #9e9e9e;
 }
-.dropdown-content li>span, textarea.materialize-textarea:focus:not([readonly])+label{
+.dropdown-content li>span, textarea.materialize-textarea:focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label{
     color: #e84a5f;
 }
-input[type=text]:not(.browser-default), textarea.materialize-textarea{
+input[type=text]:not(.browser-default), textarea.materialize-textarea, input[type=password]:not(.browser-default){
     color: white;
 }
 
