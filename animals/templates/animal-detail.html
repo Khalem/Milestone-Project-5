@@ -6,8 +6,18 @@
 
 {% block title %}{{ animal.name }}{% endblock %}
 
-{% block content %}
+{% block head_css %}
     <style>
+        .animal-header{
+            background-image: url('/media/{{ animal.profile_img }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .darken-header{
+            background: rgba(42, 54, 59, 0.5);
+            width: 100%;
+            height: 100%;
+        }
         @media only screen and (min-width: 768px){
             /* Only display header-img for > tablets */
             .animal-header{
@@ -15,17 +25,11 @@
                 background-size: cover;
                 background-repeat: no-repeat;
             }
-            .animal-header h1{
-                color: white;
-                font-weight: 700;
-            }
-            .darken-header{
-                background: rgba(42, 54, 59, 0.5);
-                width: 100%;
-                height: 100%;
-            }
         }
     </style>
+{% endblock %}
+
+{% block content %}
     
     <!-- Header -->
     <div class="animal-header">
@@ -52,30 +56,61 @@
                     <p>{{ animal.info }}</p>
                 </div>
                 <div class="col s12 m6 l4">
-                    <p>{{ animal.status_choices }}</p>
+                    <p class="bold"> 
+                        {% if animal.status_choices == "Critically Endangered" %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% elif animal.status_choices == "Endangered" %}
+                            <i class="fas fa-exclamation-circle"></i>
+                        {% elif animal.status_choices == "Vulnerable" %}
+                            <i class="fas fa-exclamation"></i>
+                        {% elif animal.status_choices == "Near Threatened" %}
+                            <i class="far fa-sad-tear"></i>
+                        {% elif animal.status_choices == "Least Concern" %}
+                            <i class="far fa-frown"></i>
+                        {% endif %}
+                        {{ animal.status_choices }}
+                        {% if animal.status_choices == "Critically Endangered" %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% elif animal.status_choices == "Endangered" %}
+                            <i class="fas fa-exclamation-circle"></i>
+                        {% elif animal.status_choices == "Vulnerable" %}
+                            <i class="fas fa-exclamation"></i>
+                        {% elif animal.status_choices == "Near Threatened" %}
+                            <i class="far fa-sad-tear"></i>
+                        {% elif animal.status_choices == "Least Concern" %}
+                            <i class="far fa-frown"></i>
+                        {% endif %}
+                    </p>
+                    <hr/>
                     {% if animal.population %}
-                        <p class="info-title">Population</p>
+                        <p class="info-title bold">Population <i class="fas fa-users"></i></p>
                         <p>{{ animal.population }}</p>
+                        <hr/>
                     {% endif %}
                     {% if animal.habitat %}
-                        <p class="info-title">Habitat</p>
+                        <p class="info-title bold">Habitat <i class="fas fa-tree"></i></p>
                         <p>{{ animal.habitat }}</p>
+                        <hr/>
                     {% endif %}
                     {% if animal.weight %}
-                        <p class="info-title">Weight</p>
+                        <p class="info-title bold">Weight <i class="fas fa-balance-scale"></i></p>
                         <p>{{ animal.weight }}</p>
+                        <hr/>
                     {% endif %}
                     {% if animal.length %}
-                        <p class="info-title">Length</p>
+                        <p class="info-title bold">Length <i class="fas fa-ruler-horizontal"></i></p>
                         <p>{{ animal.length }}</p>
+                        <hr/>
                     {% endif %}
                     {% if animal.height %}
-                        <p class="info-title">Height</p>
+                        <p class="info-title bold">Height <i class="fas fa-ruler-vertical"></i></p>
                         <p>{{ animal.height }}</p>
+                        <hr/>
                     {% endif %}
                     {% if animal.scientific_name %}
-                        <p class="info-title">Scientific Name</p>
+                        <p class="info-title bold">Scientific Name <i class="fas fa-flask"></i></p>
                         <p>{{ animal.scientific_name }}</p>
+                        <hr/>
                     {% endif %}
                 </div>
             </div>
@@ -93,34 +128,34 @@
         <!-- Display Adoption offers -->
         <div id="adopt" class="col s12">
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 large-spaced">
                     <h4>{{ animal.adoptanimalone.plan_name }}</h4>
                     <p>{{ animal.adoptanimalone.description }}</p>
-                    <h5>{{ animal.adoptanimalone.price }}</h5>
+                    <h5><i class="fas fa-euro-sign"></i> {{ animal.adoptanimalone.price }}</h5>
                     <form method="post" action="{% url 'add_to_cart' animal.adoptanimalone.plan_name %}">
                         {% csrf_token %}
                         <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
-                        <button class="btn btn-success" type="submit">Add</button>
+                        <button class="btn bg-red" type="submit">Add to Cart</button>
                     </form>
                 </div>
                 <div class="col s12">
                     <h4>{{ animal.adoptanimaltwo.plan_name }}</h4>
                     <p>{{ animal.adoptanimaltwo.description }}</p>
-                    <h5>{{ animal.adoptanimaltwo.price }}</h5>
+                    <h5><i class="fas fa-euro-sign"></i> {{ animal.adoptanimaltwo.price }}</h5>
                     <form method="post" action="{% url 'add_to_cart' animal.adoptanimaltwo.plan_name %}">
                         {% csrf_token %}
                         <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
-                        <button class="btn btn-success" type="submit">Add</button>
+                        <button class="btn bg-red" type="submit">Add to Cart</button>
                     </form>
                 </div>
-                <div class="col s12">
+                <div class="col s12 large-spaced">
                     <h4>{{ animal.adoptanimalthree.plan_name }}</h4>
                     <p>{{ animal.adoptanimalthree.description }}</p>
-                    <h5>{{ animal.adoptanimalthree.price }}</h5>
+                    <h5><i class="fas fa-euro-sign"></i> {{ animal.adoptanimalthree.price }}</h5>
                     <form method="post" action="{% url 'add_to_cart' animal.adoptanimalthree.plan_name %}">
                         {% csrf_token %}
                         <input name='quantity' type="number" min="1" max="999" class="form-control" placeholder="Quantity">
-                        <button class="btn btn-success" type="submit">Add</button>
+                        <button class="btn bg-red" type="submit">Add to Cart</button>
                     </form>
                 </div>
             </div>
@@ -132,21 +167,28 @@
             <!-- Load Comments -->
             {% get_comment_list for animal as comment_list %}
             {% for comment in comment_list %}
-                <div class="row">
-                    <div class="col s5 m2 profile-box">
+                <div class="row help-container shadow-25b">
+                    <div class="col s3 m2 profile-box">
                         <img class="comment-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
                         <div class="row">
                             <h6 class="bold">{{ comment.user }}</h6>
-                            <p class="small">{{ comment.submit_date }}</p>
+                            <p class="small truncate">{{ comment.submit_date }}</p>
                         </div>
                     </div>
-                    <div class="col s7 m10">
+                    <div class="col s9 m10">
                         <p>{{ comment.comment }}</p>
-                        <p><a href="{% url 'up_vote_comment' comment.id animal.id %}">Up Vote</a> {{ comment.upvote.score }}</p>
+                        <p><a class="tooltipped" data-tooltip="I like this!" href="{% url 'up_vote_comment' comment.id animal.id %}">
+                            {% if user in comment.upvote.up_voted.all %}
+                                <i class="far fa-thumbs-up c-red"></i>
+                            {% else %}
+                                <i class="far fa-thumbs-up"></i>
+                            {% endif %}
+                        </a> {{ comment.upvote.score }}</p>
                     </div>
                 </div>
             {% endfor %}
             
+            <h5 class="bold center">Leave a comment!</h5>
             <!-- If user is logged in, they can post a comment. -->
             {% if user.is_authenticated %}
                 {% get_comment_form for animal as form %}
@@ -159,10 +201,10 @@
                 {{ form.timestamp }}
                 {{ form.security_hash }}
                 <input type="hidden" name="next" value="{% url 'animal_detail' animal.id %}" />
-                <input type="submit" value="Add comment" id="id_submit" class="btn btn-default"/>
+                <input type="submit" value="Add comment" id="id_submit" class="btn bg-red"/>
                 </form>
             {% else %}
-                <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                <p>Please <a class="c-red" href="{% url 'login' %}">log in</a> to leave a comment.</p>
             {% endif %}
         </div>
     </div>

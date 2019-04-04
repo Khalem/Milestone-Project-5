@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 from django_comments.models import Comment
 from .models import Animal
 
@@ -33,6 +34,7 @@ def animal_detail(request, pk):
     return render(request, "animal-detail.html", {"animal": animal})
     
 
+@login_required()
 def up_vote_comment(request, pk, page_id):
     """
         This view will check if user has already up voted, then add or remove up vote accordinly.
