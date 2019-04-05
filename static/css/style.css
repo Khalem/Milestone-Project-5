@@ -1,4 +1,8 @@
 /*-- Misc. Styles --*/
+html, body, .my-wrapper{
+    height: 100%;
+}
+
 body{
     font-family: "Roboto", sans-serif;
     background-color: #2A363B;
@@ -169,7 +173,8 @@ nav img{
 
 /*-- Form Styles --*/
 /*Materialize Forms*/
-input[type=text]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]){
+input[type=text]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]){
     border-bottom: 1px solid #e84a5f;
     box-shadow: 0 1px 0 0 #e84a5f;
 }
@@ -185,10 +190,11 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label{
 .select-wrapper .caret{
     fill: #9e9e9e;
 }
-.dropdown-content li>span, textarea.materialize-textarea:focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label{
+.dropdown-content li>span, textarea.materialize-textarea:focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label,
+input[type=email]:not(.browser-default):focus:not([readonly])+label{
     color: #e84a5f;
 }
-input[type=text]:not(.browser-default), textarea.materialize-textarea, input[type=password]:not(.browser-default){
+input[type=text]:not(.browser-default), textarea.materialize-textarea, input[type=password]:not(.browser-default),input[type=email]:not(.browser-default){
     color: white;
 }
 
@@ -253,8 +259,17 @@ input[type=text]:not(.browser-default), textarea.materialize-textarea, input[typ
 /*-- /Tab Styles --*/
 
 /*-- Responsive Styling --*/
+#login_img_container img{
+    max-width: 75px;
+    margin: 50px 0;
+}
+
 @media only screen and (min-width: 768px){
     .comment-profile-img{
         max-width: 50px;
+    }
+    #login_img_container img{
+        margin: 150px 0;
+        max-width: 200px;
     }
 }

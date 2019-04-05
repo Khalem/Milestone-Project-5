@@ -7,32 +7,32 @@
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
-    <h5 class="bold center large-spaced">Login</h5>
-    
-    <div class="row container">
-        <!-- Login Form -->
-        <div class="col s12 m6 xl4 offset-xl2">
-            <div class="login-container shadow-25b">
-                <p class="bold center">Welcome Back!</p>
-                <hr class="hr-red" style="width: 15%;"/>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ login_form | materializecss }}
-                    <div class="row center">
-                        <button type="submit" class="btn bg-red">Submit</button>
-                    </div>
-                </form>
-                <p class="bold small center"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
-                <br/>
-                <p class="small center">Don't have an account? <a class="bold" href="{% url 'registration' %}">Register here!</a></p>
+    <section class="my-wrapper valign-wrapper">
+        <div class="row container">
+            <!-- Login Form -->
+            <div class="col s12 m6 xl4 offset-xl2">
+                <div class="login-container shadow-25b">
+                    <p class="bold center">Welcome Back!</p>
+                    <hr class="hr-red" style="width: 15%;"/>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ login_form | materializecss }}
+                        <div class="row center">
+                            <button type="submit" class="btn bg-red">Submit</button>
+                        </div>
+                    </form>
+                    <p class="bold small center"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                    <br/>
+                    <p class="small center">Don't have an account? <a class="bold" href="{% url 'registration' %}">Register here!</a></p>
+                </div>
+            </div>
+            <!-- Company Logo -->
+            <div class="col m6 s12 xl3">
+                <div id="login_img_container" class="row center">
+                    <img src="{% static 'images/Logo-Pink.png' %}" alt="Praesidio Logo"/>
+                </div>
             </div>
         </div>
-        <!-- Company Logo -->
-        <div class="col m6 s12 xl3">
-            <div class="row center">
-                <img class="logo-resize-md xl-spaced" src="{% static 'images/Logo-Pink.png' %}" alt="Praesidio Logo"/>
-            </div>
-        </div>
-    </div>
+    </section>
 
 {% endblock %}
