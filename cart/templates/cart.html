@@ -2,24 +2,30 @@
 {% load static from staticfiles %}
 
 {% block content %}
+<!-- Header -->
+<div class="container">
+    <h5 class="bold center xl-spaced">Cart<i class="fas fa-shopping-cart"></i></h5>
+</div>
+
+<!-- Get Cart Items -->
 <div class="row">
     {% for item in cart_items %}
     <div class="container">
-        <div>
-            <h3>
-                <h3>{{ item.plan_name }}</h3>
+        <div class="col s12 m6 xl4">
+            <div class="card help-container shadow-25b">
+                <h5 class="bold">{{ item.plan_name }}</h5>
+                
+                <!-- Depending on which pack the user chose, I will search for the correct object -->
                 {% if "Ultimate Pack" in item.plan_name %}
                     <p class="product-description">{{ item.product.adoptanimalthree.description }}</p>
-                    <p>{{ item.product.adoptanimalthree.price }}</p>
+                    <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimalthree.price }}</p>
                 {% elif "Basic Pack" in item.plan_name %}
                     <p class="product-description">{{ item.product.adoptanimalone.description }}</p>
-                    <p>{{ item.product.adoptanimalone.price }}</p>
+                    <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimalone.price }}</p>
                 {% elif "Mega Pack" in item.plan_name %}
                     <p class="product-description">{{ item.product.adoptanimaltwo.description }}</p>
-                    <p>{{ item.product.adoptanimaltwo.price }}</p>
+                    <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimaltwo.price }}</p>
                 {% endif %}
-            <p>
-                
                 <form method="post" action="{% url 'adjust_cart' item.plan_name %}">
                     {% csrf_token %}
                     <div>
@@ -30,17 +36,19 @@
                             <div>Amount: {{ item.quantity }}</div>
                         </div>
                     </div>
-                    <button type="submit" class="btn">Amend</button>
+                    <button type="submit" class="btn bg-red waves-effect">Amend</button>
                 </form>
-            </p>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
+<!-- Get total and checkout -->
 <div class="row container">
-    <p>Total</p>
-    <p>{{ total }}</p>
-    <a href="{% url 'checkout' %}" class="btn" role="button">Checkout</a>
+    <hr class="hr-grey"/>
+    <p class="bold">Total</p>
+    <p><i class="fas fa-euro-sign"></i> {{ total }}</p>
+    <a href="{% url 'checkout' %}" class="btn bg-red waves-effect" role="button">Checkout</a>
 </div>
 
 {% endblock %}
