@@ -5,15 +5,17 @@
 {% block title %}Community{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="center">New Post</h1>
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ form | materializecss }}
-                    <button type="submit" class="btn">Save</button>
-                </form>
+    <div class="my-wrapper valign-wrapper">
+        <div class="container">
+            <h5 class="bold center">New Post</h5>
+            <div class="row">
+                <div class="col s12 m6 offset-m3">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form | materializecss }}
+                        <button type="submit" class="btn bg-red">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -6,13 +6,13 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="bold center">Community</h1>
-        <a class="btn" href="{% url 'new_post' %}">New Post</a>
-        <h2>Staff Posts</h2>
+        <h5 class="bold center xl-spaced">Community</h5>
+        <a class="btn bg-red right" href="{% url 'new_post' %}">New Post</a>
+        <h5 class="bold small-spaced"><i class="fas fa-wrench"></i> Staff Posts</h5>
         <!-- Get Staff Posts -->
         {% for post in staff_posts %}
-            <div class="row">
-                <div class="col s5 m2 profile-box">
+            <div class="row help-container shadow-25b">
+                <div class="col s4 m2 profile-box">
                     {% if post.user.profile.image %}
                         <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
                     {% else %}
@@ -21,19 +21,26 @@
                         <h6 class="bold">{{ post.user }}</h6>
                         <p class="small truncate">{{ post.published_date }}</p>
                 </div>
-                <div class="col s7 m10">
+                <div class="col s8 m10">
                     <a href="{% url 'post_detail' post.id %}"><h6 class="bold">{{ post.title }}</h6>
                     <p class="truncate">{{ post.content }}</p></a>
-                    <p><a href="{% url 'up_vote_post' post.id %}">Up Vote</a> {{ post.postupvote.score }}</p>
+                    <p><a class="tooltipped" data-tooltip="I like this!" href="{% url 'up_vote_post' post.id %}">
+                            {% if user in post.postupvote.up_voted.all %}
+                                <i class="far fa-thumbs-up c-red"></i>
+                            {% else %}
+                                <i class="far fa-thumbs-up"></i>
+                            {% endif %}
+                        </a>{{ post.postupvote.score }}</p>
                 </div>
             </div>
         {% endfor %}
         
         <!-- Staff Pagination -->
+        <!-- Added user_page variable to href so user doesn't lose their user page when switching staff pages -->
         {% if staff_posts.has_other_pages %}
-            <ul class="pagination">
+            <ul class="pagination center">
                 {% if staff_posts.has_previous %}
-                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.previous_page_number }}&user_page={{ user_page }}"><i class="material-icons">chevron_left</i></a></li>
                 {% else %}
                     <li class="disabled"><i class="material-icons">chevron_left</i></li>
                 {% endif %}
@@ -41,11 +48,11 @@
                     {% if staff_posts.number == i %}
                         <li class="active"><a href="#!">{{ i }}</a></li>
                     {% else %}
-                        <li class="waves-effect"><a href="?staff_page={{ i }}">{{ i }}</a></li>
+                        <li class="waves-effect"><a href="?staff_page={{ i }}&user_page={{ user_page }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if staff_posts.has_next %}
-                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="waves-effect"><a href="?staff_page={{ staff_posts.next_page_number }}&user_page={{ user_page }}"><i class="material-icons">chevron_right</i></a></li>
                 {% else %}
                     <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 {% endif %}
@@ -53,10 +60,10 @@
         {% endif %}
         
         <!-- Get Posts -->
-        <h2>User Posts</h2>
+        <h5 class="bold small-spaced"><i class="fas fa-users"></i> User Posts</h5>
         {% for post in user_posts %}
-            <div class="row">
-                <div class="col s5 m2 profile-box">
+            <div class="row help-container shadow-25b">
+                <div class="col s4 m2 profile-box">
                     {% if post.user.profile.image %}
                         <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
                     {% else %}
@@ -65,7 +72,7 @@
                         <h6 class="bold">{{ post.user }}</h6>
                         <p class="small truncate">{{ post.published_date }}</p>
                 </div>
-                <div class="col s7 m10">
+                <div class="col s8 m10">
                     <a href="{% url 'post_detail' post.id %}"><h6 class="bold">{{ post.title }}</h6>
                     <p class="truncate">{{ post.content }}</p></a>
                     <p><a href="#">Up Vote</a> {{ post.postupvote.score }}</p>
@@ -74,10 +81,11 @@
         {% endfor %}
         
         <!-- Pagination -->
+        <!-- Added staff_page variable to href so user doesn't lose their staff page when switching user pages -->
         {% if user_posts.has_other_pages %}
-            <ul class="pagination">
+            <ul class="pagination center">
                 {% if user_posts.has_previous %}
-                    <li class="waves-effect"><a href="?user_page={{ user_posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="waves-effect"><a href="?user_page={{ user_posts.previous_page_number }}&staff_page={{ staff_page }}"><i class="material-icons">chevron_left</i></a></li>
                 {% else %}
                     <li class="disabled"><i class="material-icons">chevron_left</i></li>
                 {% endif %}
@@ -85,11 +93,11 @@
                     {% if user_posts.number == i %}
                         <li class="active"><a href="#!">{{ i }}</a></li>
                     {% else %}
-                        <li class="waves-effect"><a href="?user_page={{ i }}">{{ i }}</a></li>
+                        <li class="waves-effect"><a href="?user_page={{ i }}&staff_page={{ staff_page }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if user_posts.has_next %}
-                    <li class="waves-effect"><a href="?user_page={{ user_posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="waves-effect"><a href="?user_page={{ user_posts.next_page_number }}&staff_page={{ staff_page }}"><i class="material-icons">chevron_right</i></a></li>
                 {% else %}
                     <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 {% endif %}

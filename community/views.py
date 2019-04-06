@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django_comments.models import Comment
 from .models import Post
 from .forms import BlogPostForm
@@ -41,7 +42,7 @@ def get_posts(request):
     except EmptyPage:
         user_posts = user_paginator.page(user_paginator.num_pages)
 
-    return render(request, "community.html", {"staff_posts": staff_posts, "user_posts": user_posts})
+    return render(request, "community.html", {"staff_posts": staff_posts, "user_posts": user_posts, "user_page": user_page, "staff_page": staff_page})
  
     
 def post_detail(request, pk):
@@ -55,6 +56,7 @@ def post_detail(request, pk):
     return render(request, "community-post.html", {"post": post})
     
     
+@login_required()
 def create_or_edit_post(request, pk=None):
     """
         Create a view that allows us to create or edit, depending if the post id is null or not.
@@ -84,6 +86,7 @@ def delete_post(request, pk):
     return redirect(get_posts)
     
     
+@login_required()    
 def up_vote_post_comment(request, pk, page_id):
     """
         This view will check if user has already up voted, then add or remove up vote accordinly - For post comments
@@ -101,7 +104,9 @@ def up_vote_post_comment(request, pk, page_id):
     
     return redirect("post_detail", page_id)
     
-
+    
+    
+@login_required()
 def up_vote_post(request, pk):
     """
         This view will check if user has already up voted, then add or remove up vote accordinly - For posts

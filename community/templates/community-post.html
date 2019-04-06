@@ -9,7 +9,15 @@
 {% block content %}
     <div class="container">
         <!-- Post -->
-        <h3 class="bold">{{ post.title }}</h3>
+        <div class="xl-spaced"></div>
+        <!-- Post Title -->
+        <h5 class="bold">{{ post.title }}
+            <!-- Allow user to edit or delete post, only if the post belongs to them -->
+            {% if post.user == user %}
+                <span class="right"><a class="dropdown-trigger" href="#" data-target="settings"><i class="fas fa-cog"></i></a></span>
+            {% endif %}
+        </h5>
+        <!-- Post Author Details -->
         <div class="row">
             {% if post.user.profile.image %}
                 <img class="post-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
@@ -21,17 +29,23 @@
                 <p class="small">{{ post.published_date }}</p>
             </div>
         </div>
-        <!-- Allow user to edit or delete post, only if the post belongs to them -->
-        {% if post.user == request.user %}
-            <a href="{% url 'edit_post' post.id %}">Edit Post</a>
-            <a class="modal-trigger" href="#delete_modal">Delete Post</a>
-        {% endif %}
+        <!-- Post Content -->
         <p>{{ post.content }}</p>
-        <p>Views {{ post.views }}</p>
-        <p><a href="{% url 'up_vote_post' post.id %}">Up Vote </a>{{ post.postupvote.score }} </p>
-        <hr>
+        <!-- Post Views -->
+        <p class="inline"><i class="fas fa-eye"></i> {{ post.views }}</p>
+        <!-- Post Upvote -->
+        <p class="inline"><a class="tooltipped" data-tooltip="I like this!" href="{% url 'up_vote_post' post.id %}">
+            {% if user in post.postupvote.up_voted.all %}
+                <i class="far fa-thumbs-up c-red"></i>
+            {% else %}
+                <i class="far fa-thumbs-up"></i>
+            {% endif %}
+        </a>{{ post.postupvote.score }} </p>
+        
+        
+        <hr class="hr-grey small-spaced"/>
         <!-- Comments -->
-        <h4 class="bold">Comments</h4>
+        <h5 class="bold small-spaced">Comments</h5>
         
         <div id="post_comments" class="col s12">
             {% get_comment_count for post as comment_count %}
@@ -40,17 +54,24 @@
             {% get_comment_list for post as comment_list %}
             {% if comment_list %}
                 {% for comment in comment_list %}
-                    <div class="row">
-                        <div class="col s5 m2 profile-box">
+                    <div class="row help-container shadow-25b">
+                        <div class="col s3 m2 profile-box">
                             <img class="comment-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
                             <div class="row">
                                 <h6 class="bold">{{ comment.user }}</h6>
-                                <p class="small">{{ comment.submit_date }}</p>
+                                <p class="small truncate">{{ comment.submit_date }}</p>
                             </div>
                         </div>
-                        <div class="col s7 m10">
+                        <div class="col s9 m10">
                             <p>{{ comment.comment }}</p>
-                            <p><a href="{% url 'up_vote_post_comment' comment.id post.id %}">Up Vote</a> {{ comment.upvote.score }}</p>
+                            <!-- Comment Upvote -->
+                            <p><a class="tooltipped" data-tooltip="I like this!" href="{% url 'up_vote_post_comment' comment.id post.id %}">
+                            {% if user in comment.upvote.up_voted.all %}
+                                <i class="far fa-thumbs-up c-red"></i>
+                            {% else %}
+                                <i class="far fa-thumbs-up"></i>
+                            {% endif %}
+                        </a> {{ comment.upvote.score }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -70,7 +91,7 @@
                 {{ form.timestamp }}
                 {{ form.security_hash }}
                 <input type="hidden" name="next" value="{% url 'post_detail' post.id %}" />
-                <input type="submit" value="Add comment" id="id_submit" class="btn btn-default"/>
+                <input type="submit" value="Add comment" id="id_submit" class="btn bg-red"/>
                 </form>
             {% else %}
                 <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
@@ -78,6 +99,12 @@
         </div>
         
     </div>
+    
+    <!-- Settings dropdown -->
+    <ul id="settings" class="dropdown-content">
+        <li><a href="{% url 'edit_post' post.id %}">Edit Post</a></li>
+        <li><a class="modal-trigger" href="#delete_modal">Delete Post</a></li>
+    </ul>
     
     <!-- Modal Structure -->
     <div id="delete_modal" class="modal">
