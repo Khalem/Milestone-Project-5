@@ -46,7 +46,7 @@ body{
     margin: 95px 0;
 }
 .xl-spaced{
-    margin: 150px 0;
+    margin: 150px 0 75px 0;
 }
 .post-profile-img{
     border-radius: 50%;
@@ -81,6 +81,9 @@ a{
 .material-tooltip{
     color: #1D2529;
     background-color: white;
+}
+.card{
+    color: white;
 }
 /*-- /Misc. Styles --*/
 
@@ -155,7 +158,7 @@ nav img{
 .animal-photo{
     max-width: 245px;
 }
-.card{
+#animal_card .card{
     color: #1D2529;
 }
 .card-content p i{

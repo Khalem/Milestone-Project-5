@@ -10,21 +10,27 @@
     <link rel="stylesheet" href="{% static 'css/custom-bootstrap.min.css' %}" type="text/css" />
     
     <div class="container">
-        <h3 class="center">Don't believe us? The numbers don't lie.</h3>
+        <h3 class="bold center xl-spaced">Don't believe us? The numbers don't lie.</h3>
         
         <!-- Charts -->
         <div class="row">
-            <div class="col-s-12 col-md-offset-2 col-md-4">
-                <div class="card">
-                    <div class="card-title bold center">Comparing Severity of Endangered Animals</div>
+            <!-- Bar Chart -->
+            <div class="col-xs-12 col-sm-6 col-md-offset-2 col-md-4">
+                <div class="card shadow-25b help-container">
+                    <div class="card-title center">
+                        <h5 class="bold">Amount of Species Under a Certain Populaiton</h5>
+                    </div>
                     <div class="card-content">
                         <canvas id="barChart" width="100" height="100"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-s-12 col-md-4">
-                <div class="card">
-                    <div class="card-title bold center">Amount of Species Under a Certain Populaiton</div>
+            <!-- Pie Chart -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="card shadow-25b help-container">
+                    <div class="card-title center">
+                        <h5 class="bold">Comparing Severity of Endangered Animals</h5>
+                    </div>
                     <div class="card-content">
                         <canvas id="pieChart" width="100" height="100"></canvas>
                     </div>
@@ -32,20 +38,22 @@
             </div>
         </div>
         
-        <hr>
+        <hr class="small-spaced"/>
         
         <!-- Info -->
-        <p class="center">"We're currently experiencing the worst spate of species die-offs 
-        since the loss of the dinosaurs 65 million years ago." - Center for Biological Diversity.</p>
+        <p class="center"><span class="italic">"We're currently experiencing the worst spate of species die-offs 
+        since the loss of the dinosaurs 65 million years ago."</span> <span class="bold">- Center for Biological Diversity.</span></p>
         <div class="row">
-            <div class="col s12 m6">
-                <h4>5</h4><h5>Species Went Extinct In 2018</h5>
+            <div class="col s12 m6 center">
+                <h3 class="bold">5</h3>
+                <h5>Species Went Extinct In 2018</h5>
             </div>
-            <div class="col s12 m6">
-                <h4>1,000</h4><h5>Species Went Extinct In The Last 500 Years</h5>
+            <div class="col s12 m6 center">
+                <h3 class="bold">1,000</h3>
+                <h5>Species Went Extinct In The Last 500 Years</h5>
             </div>
-            <div class="col s12">
-                <a class="waves-effect waves-light btn bg-red modal-trigger" href="#help">Like to Help?</a>
+            <div class="col s12 center">
+                <a class="waves-effect waves-light btn bg-red modal-trigger small-spaced" href="#help">Like to Help?</a>
             </div>
         </div>
         
@@ -53,16 +61,16 @@
         <div id="help" class="modal">
             <div class="modal-content">
                 <h4 class="bold center">Like to Help?</h4>
-                <p>The best way you can help would be directly supporting the animals you're looking to save! You can view the endangered animals <a href="{% url 'all_animals' %}">here</a>, or by clicking on the button below!
+                <p>The best way you can help would be <span class="bold">by directly supporting the animals you're looking to save!</span> You can view the endangered animals <a class="bold c-red" href="{% url 'all_animals' %}">here</a>, or by clicking on the button below!
                 Just click on an animal you'd like to support and adopt it! We thank you for your time.</p>
-                <a class="btn" href="{% url 'all_animals' %}">View Animals</a>
+                <div class="row center">
+                    <a class="btn bg-red" href="{% url 'all_animals' %}">View Animals</a>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Okay</a>
             </div>
         </div>
-        
-        
     </div>
     
     <!-- Bar Chart -->
@@ -98,9 +106,20 @@
             scales: {
                 yAxes: [{
                     ticks: {
+                        fontColor: "#bcbcbc",
                         beginAtZero: true
                     }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#bcbcbc"
+                    }
                 }]
+            },
+            legend: {
+                labels: {
+                    fontColor: "#bcbcbc"
+                }
             }
         }
     });
@@ -137,10 +156,20 @@
         options: {
             scales: {
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                    },
                     ticks: {
+                        fontColor: "#bcbcbc",
                         beginAtZero: true
                     }
                 }]
+            },
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    fontColor: "#bcbcbc"
+                }
             }
         }
     });
