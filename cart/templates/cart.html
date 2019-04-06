@@ -48,7 +48,9 @@
     <hr class="hr-grey"/>
     <p class="bold">Total</p>
     <p><i class="fas fa-euro-sign"></i> {{ total }}</p>
+    {% if total > 0 %}
     <a href="{% url 'checkout' %}" class="btn bg-red waves-effect" role="button">Checkout</a>
+    {% endif %}
 </div>
 
 {% endblock %}

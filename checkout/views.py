@@ -61,15 +61,17 @@ def checkout(request):
                 elif not user.profile.adopted:
                     user.profile.adopted = [product.name]
                     
-                if len(user.profile.adopted) >= 1:
+                if len(user.profile.adopted) == 1:
                     user.profile.rank = "Adopter"
-                elif len(user.profile.adopted) >= 3:
+                elif len(user.profile.adopted) == 3:
                     user.profile.rank = "Hero"
-                elif len(user.profile.adopted) >= 5:
+                elif len(user.profile.adopted) == 5:
                     user.profile.rank = "Legend"
+                elif len(user.profile.adopted) >= 10:
+                    user.profile.rnak = "Saviour"
                     
                 user.profile.save()
-                messages.error(request, "You have successfuly paid")
+                messages.error(request, "You have successfuly paid. Thank you for your generosity!")
                 request.session["cart"] = {}
                 return redirect(reverse("all_animals"))
             else:

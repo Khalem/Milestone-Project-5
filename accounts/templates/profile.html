@@ -5,22 +5,54 @@
 {% block title %}{{ user }}'s Profile{% endblock %}
 
 {% block content %}
-    <a class="btn" href="{% url 'edit_profile' %}">Edit Profile</a>
-    <h1>Profile</h1>
-    {% if user_profile.profile.image %}
-        <img src="/media/{{ user_profile.profile.image }}" alt="Profile Picture"/>
-    {% else %}
-        <img src="{% static 'images/default.jpg' %}" alt="Profile Picture"/>
-    {% endif %}
-    <h3>{{ user }}</h3>
-    <p>{{ user_profile.profile.bio }}</p>
-    <p>Proud Owner of:</p>
-    <ul>
-        {% for animal in user_profile.profile.adopted %}
-            <li>{{ animal }}</li>
-        {% endfor %}
+    <div class="xl-spaced"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                {% if user_profile.profile.image %}
+                    <img class="profile-img" src="/media/{{ user_profile.profile.image }}" alt="Profile Picture"/>
+                {% else %}
+                    <img class="profile-img" src="{% static 'images/default.jpg' %}" alt="Profile Picture"/>
+                {% endif %}
+            </div>
+            <div class="col s12 m6">
+                <!-- Username + settings cog - users can edit profile from here -->
+                <h3 class="bold inline">{{ user }} </h3> <a class="dropdown-trigger inline right" href="#" data-target="settings"><i class="fas fa-cog"></i></a>
+                <p>{{ user_profile.profile.bio }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <p class="bold">Proud Owner of:</p>
+                <ul>
+                    {% for animal in user_profile.profile.adopted %}
+                        <li>{{ animal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col s12 m6">
+                <p class="bold">Rank:</p>
+                <p>
+                    {% if user_profile.profile.rank == "Praesidio Member" %}
+                        <i class="far fa-smile c-red"></i>
+                    {% elif user_profile.profile.rank == "Adopter" %}
+                        <i class="far fa-grin-beam c-red"></i>
+                    {% elif user_profile.profile.rank == "Hero" %}
+                        <i class="fas fa-mask c-red"></i>
+                    {% elif user_profile.profile.rank == "Legend" %}
+                        <i class="far fa-gem c-red"></i>
+                    {% elif user_profile.profile.rank == "Saviour" %}
+                        <i class="fas fa-crown c-red"></i>
+                    {% endif %}
+                    
+                    {{ user_profile.profile.rank }}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings dropdown -->
+    <ul id="settings" class="dropdown-content">
+        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
     </ul>
-    <ul></ul>
-    <p>Rank:</p>
-    <p>{{ user_profile.profile.rank }}</p>
 {% endblock %}

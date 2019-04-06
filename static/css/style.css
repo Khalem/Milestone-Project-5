@@ -21,6 +21,9 @@ body{
 .italic{
     font-style: italic;
 }
+.inline{
+    display: inline-block;
+}
 .uppercase{
     text-transform: uppercase;
 }
@@ -197,7 +200,7 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label{
     fill: #9e9e9e;
 }
 .dropdown-content li>span, textarea.materialize-textarea:focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label,
-input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label{
+input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, .dropdown-content li>a{
     color: #e84a5f;
 }
 input[type=text]:not(.browser-default), textarea.materialize-textarea, input[type=password]:not(.browser-default),input[type=email]:not(.browser-default),
@@ -284,4 +287,8 @@ input[type=number]:not(.browser-default){
 
 .product-description{
     color: #dddddd;
+}
+
+.profile-img{
+    max-width: 300px;
 }
