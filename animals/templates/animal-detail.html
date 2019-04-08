@@ -11,7 +11,7 @@
 {% block head_css %}
     <style>
         .animal-header{
-            background-image: url('/media/{{ animal.profile_img }}');
+            background-image: url('{{ MEDIA_URL }}{{ animal.profile_img }}');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -23,7 +23,7 @@
         @media only screen and (min-width: 768px){
             /* Only display header-img for > tablets */
             .animal-header{
-                background-image: url('/media/{{ animal.header_img }}');
+                background-image: url('{{ MEDIA_URL }}{{ animal.header_img }}');
                 background-size: cover;
                 background-repeat: no-repeat;
             }
@@ -172,7 +172,7 @@
                 <div class="row help-container shadow-25b">
                     <div class="col s3 m2 profile-box">
                         {% if comment.user.profile.image %}
-                            <img class="post-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                            <img class="post-profile-img" src="{{ MEDIA_URL }}{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
                         {% else %}
                             <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
                         {% endif %}
@@ -202,7 +202,7 @@
                                 <div class="row">
                                     <a href="{% url 'profile' user_liked.id %}">
                                         {% if user_liked.profile.image %}
-                                            <img class="post-profile-img" src="/media/{{ user_liked.profile.image }}" alt="{{ user }} Profile Image"/>
+                                            <img class="post-profile-img" src="{{ MEDIA_URL }}{{ user_liked.profile.image }}" alt="{{ user }} Profile Image"/>
                                         {% else %}
                                             <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
                                         {% endif %}
