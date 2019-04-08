@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm, EditProfileForm
 from .models import Profile
+from community.models import Post
 
 # Create your views here.
 def index(request):
@@ -97,7 +99,23 @@ def edit_profile(request):
                
 def profile(request, pk):
     """
-        The users profile page
+        The users profile page - I will get all posts created by user (if they have any) and then paginate it.
     """
     user = User.objects.get(pk=pk)
-    return render(request, "profile.html", {"user_profile": user})
+    user_posts = Post.objects.filter(user=user).order_by("-published_date")
+    
+
+    paginator = Paginator(user_posts, 4)
+
+    page = request.GET.get("page")
+
+    # Paginate
+    try:
+        user_posts = paginator.page(page)
+    except PageNotAnInteger:
+        user_posts = paginator.page(1)
+    except EmptyPage:
+        user_posts = paginator.page(paginator.num_pages)
+    
+    
+    return render(request, "profile.html", {"user_profile": user, "user_posts": user_posts })

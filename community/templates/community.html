@@ -13,13 +13,15 @@
         {% for post in staff_posts %}
             <div class="row help-container shadow-25b">
                 <div class="col s4 m2 profile-box">
-                    {% if post.user.profile.image %}
-                        <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
-                    {% else %}
-                        <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
-                    {% endif %}
+                    <a href="{% url 'profile' post.user.id %}">
+                        {% if post.user.profile.image %}
+                            <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                        {% else %}
+                            <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                        {% endif %}
                         <h6 class="bold">{{ post.user }}</h6>
-                        <p class="small truncate">{{ post.published_date }}</p>
+                    </a>
+                    <p class="small truncate">{{ post.published_date }}</p>
                 </div>
                 <div class="col s8 m10">
                     <a href="{% url 'post_detail' post.id %}"><h6 class="bold">{{ post.title }}</h6>
@@ -92,13 +94,15 @@
         {% for post in user_posts %}
             <div class="row help-container shadow-25b">
                 <div class="col s4 m2 profile-box">
-                    {% if post.user.profile.image %}
-                        <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
-                    {% else %}
-                        <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
-                    {% endif %}
+                    <a href="{% url 'profile' post.user.id %}">
+                        {% if post.user.profile.image %}
+                            <img class="comment-profile-img" src="/media/{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                        {% else %}
+                            <img class="comment-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                        {% endif %}
                         <h6 class="bold">{{ post.user }}</h6>
-                        <p class="small truncate">{{ post.published_date }}</p>
+                    </a>
+                    <p class="small truncate">{{ post.published_date }}</p>
                 </div>
                 <div class="col s8 m10">
                     <a href="{% url 'post_detail' post.id %}"><h6 class="bold">{{ post.title }}</h6>
