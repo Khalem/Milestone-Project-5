@@ -92,7 +92,7 @@ def up_vote_post_comment(request, pk, page_id):
         This view will check if user has already up voted, then add or remove up vote accordinly - For post comments
     """
     comment = Comment.objects.get(pk=pk)
-    
+
     if request.user not in comment.upvote.up_voted.all():
         comment.upvote.up_voted.add(request.user)
         comment.upvote.score += 1

@@ -2,6 +2,8 @@
 
 {% load materializecss %}
 
+{% load staticfiles %}
+
 {% load comments %}
 
 {% block title %}{{ animal.name }}{% endblock %}
@@ -183,7 +185,34 @@
                             {% else %}
                                 <i class="far fa-thumbs-up"></i>
                             {% endif %}
-                        </a> {{ comment.upvote.score }}</p>
+                        </a> <a href="#liked_comment_modal" class="modal-trigger">{{ comment.upvote.score }}</a></p>
+                    </div>
+                </div>
+                
+                <!-- Who Liked Comment Modal Structure - needs to be inside for loop -->
+                <div id="liked_comment_modal" class="modal">
+                    <div class="container">
+                        <div class="modal-content">
+                            <h4 class="center">Users Who Liked This</h4>
+                            {% for user_liked in comment.upvote.up_voted.all %}
+                                <div class="row">
+                                    <a href="{% url 'profile' user_liked.id %}">
+                                        {% if user_liked.profile.image %}
+                                            <img class="post-profile-img" src="/media/{{ user_liked.profile.image }}" alt="{{ user }} Profile Image"/>
+                                        {% else %}
+                                            <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                                        {% endif %}
+                                        <div class="post-author">
+                                            <p class="bold">{{ user_liked }}</p>
+                                            <p>{{ user_liked.profile.rank }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn bg-red modal-close">Close</button>
                     </div>
                 </div>
             {% endfor %}

@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}{{ user }}'s Profile{% endblock %}
+{% block title %}{{ user_profile.username }}'s Profile{% endblock %}
 
 {% block content %}
     <div class="xl-spaced"></div>
@@ -17,7 +17,10 @@
             </div>
             <div class="col s12 m6">
                 <!-- Username + settings cog - users can edit profile from here -->
-                <h3 class="bold inline">{{ user }} </h3> <a class="dropdown-trigger inline right" href="#" data-target="settings"><i class="fas fa-cog"></i></a>
+                <h3 class="bold inline">{{ user_profile.username }} </h3>
+                {% if user == user_profile.username %}
+                    <a class="dropdown-trigger inline right" href="#" data-target="settings"><i class="fas fa-cog"></i></a>
+                {% endif %}
                 <p>{{ user_profile.profile.bio }}</p>
             </div>
         </div>

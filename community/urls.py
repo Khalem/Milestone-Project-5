@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^new/$', create_or_edit_post, name="new_post"),
     url(r'^(?P<pk>\d+)/edit/$', create_or_edit_post, name="edit_post"),
     url(r'^(?P<pk>\d+)/delete/$', delete_post, name="delete_post"),
-    url(r'^upvote/(?P<pk>\d+)/', up_vote_post, name="up_vote_post"),
-    url(r'^upvote/(?P<pk>\d+)/(?P<page_id>\d+)', up_vote_post_comment, name="up_vote_post_comment"),
+    url(r'^post_upvote/(?P<pk>\d+)/', up_vote_post, name="up_vote_post"),
+    url(r'^post-upvote-comment/(?P<pk>\d+)/(?P<page_id>\d+)', up_vote_post_comment, name="up_vote_post_comment"),
 ]

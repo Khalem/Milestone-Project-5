@@ -95,9 +95,9 @@ def edit_profile(request):
     return render(request, "edit-profile.html", {"form": form})
 
                
-def profile(request):
+def profile(request, pk):
     """
         The users profile page
     """
-    user = User.objects.get(email=request.user.email)
+    user = User.objects.get(pk=pk)
     return render(request, "profile.html", {"user_profile": user})
