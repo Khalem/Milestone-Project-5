@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = [os.environ.get("C9_HOSTNAME")]
 
 # Required for django_comments
-SITE_ID = 2
+SITE_ID = 3
 
 # Application definition
 
