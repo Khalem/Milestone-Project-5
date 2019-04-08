@@ -58,7 +58,11 @@
                 {% for comment in comment_list %}
                     <div class="row help-container shadow-25b">
                         <div class="col s3 m2 profile-box">
-                            <img class="comment-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                            {% if comment.user.profile.image %}
+                                <img class="post-profile-img" src="/media/{{ comment.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                            {% else %}
+                                <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
+                            {% endif %}
                             <div class="row">
                                 <h6 class="bold">{{ comment.user }}</h6>
                                 <p class="small truncate">{{ comment.submit_date }}</p>

@@ -9,6 +9,10 @@ body{
     color: white;
     overflow-x: hidden;
 }
+/* Font styles, colors */
+h5{
+    font-family: "Fira Sans", sans-serif;
+}
 .bold{
     font-weight: 700;
 }
@@ -36,12 +40,18 @@ body{
 .c-red{
     color: #E84A5F;
 }
+.light-white{
+    color: #dddddd;
+}
 .hr-red{
     border-color: #E84A5F;
 }
 .hr-grey{
     border-color: #888888;
 }
+/* /Font styles, colors */
+
+/* Margins, sizes */
 .hr-small{
     width: 5%;
 }
@@ -54,26 +64,15 @@ body{
 .xl-spaced{
     margin: 150px 0 75px 0;
 }
-.post-profile-img{
-    border-radius: 50%;
-    max-width: 40px;
-    display: inline-block;
-}
-.post-author{
-    margin-left: 10px;
-    display: inline-block;
-    line-height: .5;
-}
 .logo-resize-md{
     max-width: 200px;
 }
+/* Margins, sizes */
+
 .shadow-25b{
     -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
-}
-h5{
-    font-family: "Fira Sans", sans-serif;
 }
 .btn{
     font-weight: 700;
@@ -91,6 +90,11 @@ a{
 .card{
     color: white;
 }
+.message{
+    padding: 20px 0;
+    width: 100%;
+    margin-top: 65px;
+}
 /*-- /Misc. Styles --*/
 
 
@@ -107,6 +111,10 @@ nav ul li{
 nav img{
     vertical-align: middle;
     max-width: 50px;
+}
+.sidenav li>a{
+    font-weight: bold;
+    color: #2A363B;
 }
 /*-- /Nav Styles --*/
 
@@ -161,6 +169,14 @@ nav img{
 
 
 /*-- Animals Styles --*/
+.animal-header h1{
+    padding: 150px 0;
+    margin: 0;
+    font-family: "Fira Sans", sans-serif;
+    color: white;
+    font-weight: 900;
+    
+}
 .animal-photo{
     max-width: 245px;
 }
@@ -178,6 +194,27 @@ nav img{
     opacity: .25;
 }
 /*-- /Animals Styles --*/
+
+
+/*-- Profile Styles --*/
+.profile-img{
+    max-width: 300px;
+}
+/*-- /Profile Styles --*/
+
+
+/*-- Post Styles --*/
+.post-profile-img{
+    border-radius: 50%;
+    max-width: 40px;
+    display: inline-block;
+}
+.post-author{
+    margin-left: 10px;
+    display: inline-block;
+    line-height: .5;
+}
+/*-- /Post Styles --*/
 
 
 /*-- Form Styles --*/
@@ -207,8 +244,6 @@ input[type=text]:not(.browser-default), textarea.materialize-textarea, input[typ
 input[type=number]:not(.browser-default){
     color: white;
 }
-
-
 /*/Materialize Forms*/
 
 
@@ -220,9 +255,6 @@ input[type=number]:not(.browser-default){
     border-radius: 50%;
     max-width: 40px;
 }
-/*.profile-box{*/
-/*    border-right: 1px solid black;*/
-/*}*/
 /*Comment Forms*/
 
 /*-- /Form Styles --*/
@@ -239,14 +271,6 @@ footer ul li{
 }
 /*-- /Footer Styles --*/
 
-.animal-header h1{
-    padding: 150px 0;
-    margin: 0;
-    font-family: "Fira Sans", sans-serif;
-    color: white;
-    font-weight: 900;
-    
-}
 
 /*-- Modal Styles --*/
 .modal-content{
@@ -302,17 +326,3 @@ footer ul li{
     }
 }
 
-
-.product-description{
-    color: #dddddd;
-}
-
-.profile-img{
-    max-width: 300px;
-}
-
-.message{
-    padding: 20px 0;
-    width: 100%;
-    margin-top: 65px;
-}

@@ -17,13 +17,13 @@
                 
                 <!-- Depending on which pack the user chose, I will search for the correct object -->
                 {% if "Ultimate Pack" in item.plan_name %}
-                    <p class="product-description">{{ item.product.adoptanimalthree.description }}</p>
+                    <p class="light-white">{{ item.product.adoptanimalthree.description }}</p>
                     <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimalthree.price }}</p>
                 {% elif "Basic Pack" in item.plan_name %}
-                    <p class="product-description">{{ item.product.adoptanimalone.description }}</p>
+                    <p class="light-white">{{ item.product.adoptanimalone.description }}</p>
                     <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimalone.price }}</p>
                 {% elif "Mega Pack" in item.plan_name %}
-                    <p class="product-description">{{ item.product.adoptanimaltwo.description }}</p>
+                    <p class="light-white">{{ item.product.adoptanimaltwo.description }}</p>
                     <p class="bold"><i class="fas fa-euro-sign"></i> {{ item.product.adoptanimaltwo.price }}</p>
                 {% endif %}
                 <form method="post" action="{% url 'adjust_cart' item.plan_name %}">
