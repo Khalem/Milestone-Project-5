@@ -10,7 +10,7 @@ class Animal(models.Model):
     STATUS = (
         ("Critically Endangered", "CE"),
         ("Endangered", "E"),
-        ("Vunerable", "V"),
+        ("Vulnerable", "V"),
         ("Near Threatened", "NT"),
         ("Least Concern", "LC"),
     )

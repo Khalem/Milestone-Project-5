@@ -228,6 +228,17 @@ input[type=number]:not(.browser-default){
 /*-- /Form Styles --*/
 
 
+/*-- Footer Styles --*/
+.page-footer{
+    margin-top: 100px;
+    background-color: #E84A5F;
+}
+footer ul li{
+    font-size: 21px;
+    display: inline-block;
+}
+/*-- /Footer Styles --*/
+
 .animal-header h1{
     padding: 150px 0;
     margin: 0;
@@ -274,6 +285,10 @@ input[type=number]:not(.browser-default){
     margin: 50px 0;
 }
 
+.valign-mobile-fix{
+    margin-top: 150px;
+}
+
 @media only screen and (min-width: 768px){
     .comment-profile-img{
         max-width: 50px;
@@ -281,6 +296,9 @@ input[type=number]:not(.browser-default){
     #login_img_container img{
         margin: 150px 0;
         max-width: 200px;
+    }
+    .valign-mobile-fix{
+        margin-top: auto;
     }
 }
 
@@ -291,4 +309,10 @@ input[type=number]:not(.browser-default){
 
 .profile-img{
     max-width: 300px;
+}
+
+.message{
+    padding: 20px 0;
+    width: 100%;
+    margin-top: 65px;
 }
