@@ -46,7 +46,7 @@
                             <div class="row">
                                 <a href="{% url 'profile' user_liked.id %}">
                                     {% if user_liked.profile.image %}
-                                        <img class="post-profile-img" src="{{ MEDIA_URL }}{{ post.user.profile.image }}" alt="{{ user }} Profile Image"/>
+                                        <img class="post-profile-img" src="{{ MEDIA_URL }}{{ user_liked.profile.image }}" alt="{{ user }} Profile Image"/>
                                     {% else %}
                                         <img class="post-profile-img" src="{% static 'images/default.jpg' %}" alt="{{ user }} Profile Image">
                                     {% endif %}
