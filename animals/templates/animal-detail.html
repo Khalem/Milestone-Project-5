@@ -242,4 +242,8 @@
         </div>
     </div>
     
+    <!-- Add required to comment field, as django-comments as there own page to handle blank comments, I don't want that. -->
+    <script>
+        document.getElementById("id_comment").required = true;
+    </script>
 {% endblock %}
