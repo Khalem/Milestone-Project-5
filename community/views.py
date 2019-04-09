@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -112,6 +112,7 @@ def up_vote_post(request, pk):
         This view will check if user has already up voted, then add or remove up vote accordinly - For posts
     """
     post = Post.objects.get(pk=pk)
+    user_liked = True
     
     if request.user not in post.postupvote.up_voted.all():
         post.postupvote.up_voted.add(request.user)
@@ -121,5 +122,6 @@ def up_vote_post(request, pk):
         post.postupvote.up_voted.remove(request.user)
         post.postupvote.score -= 1
         post.postupvote.save()
+        user_liked = False
     
     return redirect("post_detail", pk)

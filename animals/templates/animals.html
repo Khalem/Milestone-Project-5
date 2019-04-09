@@ -29,49 +29,54 @@
     </form>
     
     <div class="row container">
-        <!-- Get animals -->
-        {% for animal in animals %}
-            <div id="animal_card" class="col s12 m6 l4 xl3">
-                <a href="{% url 'animal_detail' animal.id %}">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="{{ MEDIA_URL }}{{ animal.profile_img }}"/>
+        {% if animals %}
+            <!-- Get animals -->
+            {% for animal in animals %}
+                <div id="animal_card" class="col s12 m6 l4 xl3">
+                    <a href="{% url 'animal_detail' animal.id %}">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ MEDIA_URL }}{{ animal.profile_img }}"/>
+                            </div>
+                            <div class="card-content">
+                                <p class="bold center truncate">
+                                {% if animal.status_choices == "Critically Endangered" %}
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                {% elif animal.status_choices == "Endangered" %}
+                                    <i class="fas fa-exclamation-circle"></i>
+                                {% elif animal.status_choices == "Vulnerable" %}
+                                    <i class="fas fa-exclamation"></i>
+                                {% elif animal.status_choices == "Near Threatened" %}
+                                    <i class="far fa-sad-tear"></i>
+                                {% elif animal.status_choices == "Least Concern" %}
+                                    <i class="far fa-frown"></i>
+                                {% endif %}
+                                {{ animal.name }}
+                                {% if animal.status_choices == "Critically Endangered" %}
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                {% elif animal.status_choices == "Endangered" %}
+                                    <i class="fas fa-exclamation-circle"></i>
+                                {% elif animal.status_choices == "Vulnerable" %}
+                                    <i class="fas fa-exclamation"></i>
+                                {% elif animal.status_choices == "Near Threatened" %}
+                                    <i class="far fa-sad-tear"></i>
+                                {% elif animal.status_choices == "Least Concern" %}
+                                    <i class="far fa-frown"></i>
+                                {% endif %}
+                                </p>
+                            </div>
+                            <div class="card-action">
+                                <p class="uppercase center">Status</p>
+                                <p class="bold center">{{ animal.status_choices }}</p>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <p class="bold center truncate">
-                            {% if animal.status_choices == "Critically Endangered" %}
-                                <i class="fas fa-exclamation-triangle"></i>
-                            {% elif animal.status_choices == "Endangered" %}
-                                <i class="fas fa-exclamation-circle"></i>
-                            {% elif animal.status_choices == "Vulnerable" %}
-                                <i class="fas fa-exclamation"></i>
-                            {% elif animal.status_choices == "Near Threatened" %}
-                                <i class="far fa-sad-tear"></i>
-                            {% elif animal.status_choices == "Least Concern" %}
-                                <i class="far fa-frown"></i>
-                            {% endif %}
-                            {{ animal.name }}
-                            {% if animal.status_choices == "Critically Endangered" %}
-                                <i class="fas fa-exclamation-triangle"></i>
-                            {% elif animal.status_choices == "Endangered" %}
-                                <i class="fas fa-exclamation-circle"></i>
-                            {% elif animal.status_choices == "Vulnerable" %}
-                                <i class="fas fa-exclamation"></i>
-                            {% elif animal.status_choices == "Near Threatened" %}
-                                <i class="far fa-sad-tear"></i>
-                            {% elif animal.status_choices == "Least Concern" %}
-                                <i class="far fa-frown"></i>
-                            {% endif %}
-                            </p>
-                        </div>
-                        <div class="card-action">
-                            <p class="uppercase center">Status</p>
-                            <p class="bold center">{{ animal.status_choices }}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+                    </a>
+                </div>
+            {% endfor %}
+        <!-- If no results, inform user -->
+        {% else %}
+            <h5 class="bold center">No results matching that search!</h5>
+        {% endif %}
     </div>
     
     
